@@ -1,0 +1,10 @@
+#! /usr/bin/env bash
+
+rm -rf dist/*
+
+cp -r src/public/* dist/
+
+concurrently -n dev-en,dev-es,server \
+"pnpm vite build --watch -- en" \
+"pnpm vite build --watch -- es" \
+"pnpm fasthr -q -d $(pwd)/dist"

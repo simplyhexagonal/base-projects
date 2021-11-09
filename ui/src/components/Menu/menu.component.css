@@ -1,0 +1,14 @@
+.menu {
+  display: flex;
+  justify-content: space-between;
+}
+
+.menu ul {
+  display: flex;
+}
+
+.menu ul > li {
+  list-style: none;
+  flex: 1;
+  padding: 0 0 0 10px;
+}

@@ -1,0 +1,39 @@
+#! /usr/bin/env bash
+
+BRANCH_NAME=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
+
+set -o allexport; source ../../$BRANCH_NAME.env; set +o allexport
+
+VERSION=$(jq -r .version ./package.json)
+TAR_NAME=admin-ui-$VERSION.tgz
+AWS_RETRY_MODE=standard
+AWS_MAX_ATTEMPTS=6
+
+echo "Attempting to build and deploy package: $TAR_NAME"
+
+pnpm build \
+&& echo -e "\n\tSuccess building app" \
+&& cd ./dist/ \
+&& tar -cphzf ../../../$TAR_NAME . \
+&& echo -e "\n\tSuccess packaging $TAR_NAME" \
+&& aws s3 sync . "$UI_BUCKET" \
+&& echo -e "\n\tSuccess syncing to $UI_BUCKET" \
+&& echo -e "\n\tUpdating distribution id: $UI_DISTRIBUTION_ID" \
+&& aws cloudfront create-invalidation \
+  --distribution-id "$UI_DISTRIBUTION_ID" \
+  --paths "/*" \
+&& echo -e "\n\tSuccess deploying distribution" \
+&& cd ../../.. \
+&& md5sum $TAR_NAME > $TAR_NAME.checksum \
+&& echo -e "\n\tSuccess generating $TAR_NAME.checksum" \
+&& aws s3 cp ./$TAR_NAME $PACKAGES_BUCKET/admin-ui/$TAR_NAME \
+&& rm ./$TAR_NAME \
+&& echo -e "\n\tSuccess uploading $TAR_NAME" \
+&& aws s3 cp ./$TAR_NAME.checksum $PACKAGES_BUCKET/admin-ui/$TAR_NAME.checksum \
+&& rm ./$TAR_NAME.checksum \
+&& echo -e "\n\tSuccess uploading $TAR_NAME.checksum"
+
+if [ "$?" != "0" ]; then
+  echo -e "\n\tFailed to deploy (code $?): $TAR_NAME"
+  exit 1
+fi

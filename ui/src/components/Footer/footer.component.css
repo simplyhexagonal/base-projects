@@ -1,0 +1,10 @@
+.footer {
+  display: flex;
+  align-items: center;
+}
+
+.lang-selector {
+  padding: 5px;
+  border: 1px #f1f0ec solid;
+  margin-right: 10px;
+}

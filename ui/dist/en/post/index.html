@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>This is a post</title>
+    <meta name="description" content="This article is a test meant to validate this portion of the project">
+    <meta name="keywords" content="">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://simplyhexagonal.org/en/post"
+        },
+        "headline": "This is a post",
+        "description": "This article is a test meant to validate this portion of the project",
+        "image": "https://picsum.photos/300/200",
+        "author": {
+          "@type": "Person",
+          "name": "Jean M. Lescure",
+          "url": "https://jeanlescure.io"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Simply Hexagonal",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://simplyhexagonal.org/logo.svg"
+          }
+        },
+        "datePublished": "2021-10-24",
+        "dateModified": "2021-10-25"
+      }
+    </script>
+    <script type="module" crossorigin src="/en/assets/post.js"></script>
+    <link rel="modulepreload" href="/en/assets/vendor.js">
+    <link rel="modulepreload" href="/en/assets/index.js">
+    <link rel="stylesheet" href="/en/assets/index.css">
+  </head>
+  
+  <body>
+    <div id="root">
+      <div id="content">
+        <header id="header"></header>
+        <div id="md">
+          <h1 id="hello-markdown">Hello Markdown!</h1>
+
+          <p>This is some static content that will be rendered directly to HTML.</p>
+          <p>
+            <img src="https://picsum.photos/300/200" alt="random image">
+          </p>
+        </div>
+        <footer id="footer"></footer>
+      </div>
+    </div>
+  </body>
+
+</html>

@@ -1,0 +1,10 @@
+{
+  "en": {
+    "translation": {
+      "missingContent": "Missing content.",
+      "title": "Hello World!",
+      "welcomeParagraph": "Almost before we knew it, we had left the ground.",
+      "countIs": "count is"
+    }
+  }
+}
